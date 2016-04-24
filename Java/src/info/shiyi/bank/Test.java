@@ -13,23 +13,23 @@ public class Test {
 		customer = bank.getCustomer(0);
 		
 		System.out.println("Creating her Savings Account with a 500.0 balance and 0.03 interetRate");
-		customer.addAccount(new SavingAccount(500.0, 0.03));
-		customer.addAccount(new CheckingAccount(200.00, 400.00));
+		customer.setSavingAccount(new SavingAccount(500.0, 0.05));
+		customer.setCheckingAccount(new CheckingAccount(200.0, customer.getSavingAccount()));;
 		
 		System.out.println("Creating the customer Owen Bryant.");
 		bank.addCustomer("Owen", "Braynt");
 		customer = bank.getCustomer(1);
 		
 		System.out.println("Creating his Checking Account with a 500.0 and no overdraft protection.");
-		customer.addAccount(new CheckingAccount(200.0));
+		customer.setCheckingAccount(new CheckingAccount(200.0));
 		
 		System.out.println("Creating ths customer Tim soley");
 		bank.addCustomer("Tim", "Soley");
 		customer = bank.getCustomer(2);
 		
 		System.out.println("Creating his Checking Account with a 500.00 balance and 500 in overdraft protection");
-		customer.addAccount(new SavingAccount(1500.00, 0.05));
-		customer.addAccount(new CheckingAccount(200.0));
+		customer.setSavingAccount(new SavingAccount(1500.00, 0.05));
+		customer.setCheckingAccount(new CheckingAccount(200.0));
 		
 		/*******************************************/
 		System.out.println("Creating the customer Maria Soley");
@@ -37,8 +37,8 @@ public class Test {
 		customer = bank.getCustomer(3);
 		
 		System.out.println("Maria shares her Checking Account with her husband Tim Soley");
-		customer.addAccount(bank.getCustomer(2).getAccount(1));
-		customer.addAccount(new SavingAccount(150.00, 0.05));
+		customer.setCheckingAccount(bank.getCustomer(2).getCheckingAccount());
+		customer.setSavingAccount(new SavingAccount(150.00, 0.05));
 		
 		System.out.println();
 		//Generate a report
@@ -52,19 +52,10 @@ public class Test {
 					+ customer.getLastName() + ", "
 					+ customer.getFirstName());
 			
-			for(int acct_idx = 0; acct_idx < customer.getNumberOfAccounts(); acct_idx++){
-				account = customer.getAccount(acct_idx);
-				String account_type = "";
-				
-				if(account instanceof SavingAccount){
-					account_type = "Saving Account";
-				}
-				else if(account instanceof CheckingAccount){
-					account_type = "Checking Account";
-				}
-				
-				System.out.println(account_type + ": current balance is " + account.balance);;
-			}
+
+			if(customer.getCheckingAccount() != null)  System.out.println("Checking Account : current balance is " + customer.getCheckingAccount().balance);
+			if(customer.getSavingAccount() != null) System.out.println("Saving Account : current balance is " + customer.getSavingAccount().balance);
+			
 		}
 		
 		System.out.println();
@@ -75,7 +66,7 @@ public class Test {
 		 */
 		System.out.println("Retrieving the customer Jane Smith with her saving account");
 		customer = bank.getCustomer(0);
-		account = customer.getAccount(0);
+		account = customer.getSavingAccount();
 		//Perform some transactions
 		System.out.println("Withdraw 150.00: " + account.withdraw(150.00));
 		System.out.println("Deposit 22.50: " + account.deposit(22.50));
@@ -95,7 +86,7 @@ public class Test {
 		//Test a Checking Account w/o overdraft protection
 		System.out.println("Retrieving the customer Owen Bryant with his checking account");
 		customer = bank.getCustomer(1);
-		account = customer.getAccount(0);
+		account = customer.getCheckingAccount();
 		//Perform some account transactions
 		System.out.println("Withdraw 150.00: " + account.withdraw(150.00));
 		System.out.println("Deposit 22.50: " + account.deposit(22.50));
@@ -110,7 +101,7 @@ public class Test {
 		//Test a Checking Account with overdraft protection
 		System.out.println("Retrieving the customer Tim Soley with his checking account");
 		customer = bank.getCustomer(2);
-		account = customer.getAccount(0);
+		account = customer.getCheckingAccount();
 		//Perform some account transactions
 		System.out.println("Withdraw 150.00: " + account.withdraw(150.00));
 		System.out.println("Deposit 22.50: " + account.deposit(22.50));
@@ -125,7 +116,7 @@ public class Test {
 		//Test a Checking Account with overdraft protection
 		System.out.println("Retrieving the customer Maria Soley with her joint");
 		customer = bank.getCustomer(3);
-		account = customer.getAccount(0);
+		account = customer.getCheckingAccount();
 		//Perform some account transactions
 		System.out.println("Deposit 150.00: " + account.deposit(150.00));
 		System.out.println("Withdraw 750.00: " + account.withdraw(750.00));

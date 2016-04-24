@@ -24,7 +24,7 @@ public class CheckingAccount extends Account{
 			balance -= amt;
 		}
 		//overdraft
-		else if(protectedBy.getBalance() >= (amt - balance)){
+		else if(protectedBy != null && protectedBy.getBalance() >= (amt - balance)){
 			balance = 0;
 			protectedBy.withdraw(amt - balance);
 		}
