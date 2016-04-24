@@ -5,19 +5,26 @@ import java.util.ArrayList;
 public class Bank {
 	
 	private ArrayList<Customer> customers;
-	//private int numberOfCustomers;
 	
-	public Bank() {
-		// TODO Auto-generated constructor stub
+	private Bank() {
+
 		this.customers = new ArrayList<Customer>();
-		//this.numberOfCustomers = 0;
+
 	}
+	
+	private static Bank bank = new Bank();
+	
+	public static Bank getBank() {
+		return bank;
+	}
+	
+	
 	
 	public void addCustomer(String firstName, String lastName){
 		
 		Customer customer = new Customer(firstName, lastName);
 		customers.add(customer);
-		//numberOfCustomers++;
+
 	}
 
 	public int getNumberOfCustomers() {
@@ -27,4 +34,7 @@ public class Bank {
 	public Customer getCustomer(int index){
 		return customers.get(index);
 	}
+
+
+
 }
