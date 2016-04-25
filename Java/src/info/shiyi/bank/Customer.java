@@ -1,6 +1,5 @@
 package info.shiyi.bank;
 
-
 public class Customer {
 	
 	final private String firstName;

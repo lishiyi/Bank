@@ -1,6 +1,7 @@
 package info.shiyi.bank;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Bank {
 	
@@ -35,6 +36,9 @@ public class Bank {
 		return customers.get(index);
 	}
 
+	public Iterator<Customer> getCustomers(){
+		return customers.iterator();
+	}
 
 
 }
