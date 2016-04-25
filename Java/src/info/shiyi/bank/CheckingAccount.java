@@ -17,21 +17,24 @@ public class CheckingAccount extends Account{
 
 
 	@Override
-	public boolean withdraw(double amt){
+	public void withdraw(double amt){
 		
 		//enough
 		if(balance >= amt){
 			balance -= amt;
 		}
 		//overdraft
-		else if(protectedBy != null && protectedBy.getBalance() >= (amt - balance)){
+		else if(protectedBy == null){
+			throw new OverdraftException("No overdraft protection", amt - balance);
+		}
+		else if(protectedBy.getBalance() >= (amt - balance)){
 			balance = 0;
 			protectedBy.withdraw(amt - balance);
 		}
 		else{
-			return false;
+			throw new OverdraftException("Infuffiecnt funds for overdraft protection",
+					amt - balance);
 		}
-		
-		return true;
+
 	}
 }

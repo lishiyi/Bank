@@ -44,9 +44,38 @@ public class Test {
 		System.out.println();
 		//Generate a report
 		customerReport.generateReport();
+		
+		System.out.println();
+		
+		
+		System.out.println("Retrieving the customer Jane Smith with her saving account");
+		customer = bank.getCustomer(0);
+		account = customer.getSavingAccount();
+		//Perform some transactions
+		try {
+			account.withdraw(150.00);
+			System.out.println("Withdraw 150.00: ");
+			account.deposit(22.50);
+			System.out.println("Deposit 22.50: ");
+			account.withdraw(47.62);
+			System.out.println("Withdraw 47.62: ");
+			account.withdraw(400.00);
+			System.out.println("Withdraw 400.00: ");
+		} catch (OverdraftException e) {
+			System.out.println("Exception: " + e.getMessage() +
+					 "   Deficit " + e.getDeficit());
+		} finally {
+			System.out.println("Customer [" + customer.getLastName() + ","
+					+ customer.getFirstName() + "] has a balance of "
+					+ account.getBalance());
+		}
+		//Print out the final account balance.
+		System.out.println();
+		
+		
 		/*
 		 * 
-		 */
+		 *
 		System.out.println("Retrieving the customer Jane Smith with her saving account");
 		customer = bank.getCustomer(0);
 		account = customer.getSavingAccount();
@@ -56,13 +85,11 @@ public class Test {
 		System.out.println("Withdraw 47.62: " + account.withdraw(47.62));
 		System.out.println("Withdraw 400.00: " + account.withdraw(400.00));
 		//Print out the final account balance.
-		System.out.println("Cusomer [" + customer.getLastName() + ","
+		System.out.println("Customer [" + customer.getLastName() + ","
 				+ customer.getFirstName() + "] has a balance of "
 				+ account.getBalance());
 		
 		System.out.println();
-		
-		
 		
 		
 		
@@ -108,7 +135,9 @@ public class Test {
 				+ customer.getFirstName() + "] has a balance of "
 				+ account.getBalance());
 		System.out.println();		
+		*/
 	}
+	
 	
 
 }

@@ -20,12 +20,11 @@ public class Account {
 		return true;
 	}
 	
-	public boolean withdraw(double amt){
+	public void withdraw(double amt){
 		
 		if(this.balance - amt < 0){
-			return false;
+			throw new OverdraftException("Insuffient Fund.", (amt - this.balance));
 		}
 		this.balance -= amt;
-		return true;
 	}
 }
